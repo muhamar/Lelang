@@ -8,8 +8,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Api_auth extends RestController
 {
-    const SECRET = 'secret';
-
     public function __construct()
     {
         parent::__construct();
@@ -31,7 +29,7 @@ class Api_auth extends RestController
     protected function createToken(array $user) {
         $time = time();
         $exp = $time + 60 * 60 * 24 * 60;
-        return JWT::encode(['id' => $user['id_peserta'], 'iat' => $time, 'exp' => $exp], self::SECRET);
+        return JWT::encode(['id' => $user['id_peserta'], 'iat' => $time, 'exp' => $exp], SECRET);
     }
 
 	protected function isLogin()
@@ -41,7 +39,7 @@ class Api_auth extends RestController
 
 		try {
 			$token = $headers['authorization'];
-			$decode = JWT::decode($token, self::SECRET, array('HS256'));
+			$decode = JWT::decode($token, SECRET, array('HS256'));
 			$id = (int) $decode->id;
 		} catch (Exception $e) {
 			return false;

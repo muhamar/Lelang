@@ -1,6 +1,7 @@
 <?php
 
 use chriskacerguis\RestServer\RestController;
+use Firebase\JWT\JWT;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -9,85 +10,116 @@ class Api_lelang extends RestController
     public function __construct()
     {
         parent::__construct();
+        $this->form_validation->set_error_delimiters('', '');
+        $this->load->model('Model_user');
         $this->load->model('Model_lelang');
         $this->load->library('form_validation');
     }
 
-    public function lelang_get()
+	protected function isLogin()
+	{
+		$headers = $this->input->request_headers();
+		if(empty($headers['authorization'])) return false;
+
+		try {
+			$token = $headers['authorization'];
+			$decode = JWT::decode($token, SECRET, array('HS256'));
+			$id = (int) $decode->id;
+		} catch (Exception $e) {
+			return false;
+		}
+        if (!$id) return false;
+		
+		return $this->Model_user->tampilUser($id);
+	}
+
+    protected function getError(array $arr = [])
     {
-        $id = $this->get('id');
-        if ($id == null) {
-            $lelang = $this->Model_lelang->tampilLelang();
-        } else {
-            $lelang = $this->Model_lelang->tampilLelang($id);
-        }
-
-        if ($lelang) {
-            $this->response([
-                'status' => true,
-                'data' => $lelang
-            ], RestController::HTTP_OK);
-        } else {
-            $this->response([
-                'status' => false,
-                'pesan' => 'Data tidak ditemukan'
-            ], RestController::HTTP_BAD_REQUEST);
-        }
-    }
-
-    public function tawaran_get()
-    {
-        $tawaran = $this->Model_lelang->tampilTawarLelang();
-
-        if ($tawaran) {
-            $this->response([
-                'status' => true,
-                'data' => $tawaran
-            ], RestController::HTTP_OK);
-        } else {
-            $this->response([
-                'status' => false,
-                'pesan' => 'Data tidak ditemukan'
-            ], RestController::HTTP_BAD_REQUEST);
-        }
-    }
-
-    public function kirimTawaran_post()
-    {
-        $id = $this->input->post('idLelang');
-        $query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
-        $tawaranTertinggi = $this->db->query($query)->row_array();
-
-        $this->form_validation->set_rules('idLelang', 'Id Lelang', 'required');
-        $this->form_validation->set_rules('tawaran', 'Tawaran', 'required');
-        if ($this->form_validation->run() == false) {
-        } else {
-            if ($this->post('tawaran') > $tawaranTertinggi['harga_tawar']) {
-                $data = [
-                    'id_lelang' => $this->post('idLelang'),
-                    'id_peserta' => 3,
-                    'harga_tawar' => $this->post('tawaran'),
-                    'status' => 'proses',
-                    'waktu_penawaran' => 2020
-                ];
-
-                if ($this->Model_lelang->tambahPenawaran($data) > 0) {
-                    $this->response([
-                        'status' => true,
-                        'pesan' => "Tawaran berhasil ditambahkan"
-                    ], RestController::HTTP_CREATED);
-                } else {
-                    $this->response([
-                        'status' => false,
-                        'pesan' => "Tawaran gagal ditambahkan"
-                    ], RestController::HTTP_BAD_REQUEST);
-                }
-            } else {
-                $this->response([
-                    'status' => false,
-                    'pesan' => 'tawaran telah terdaftar, naikkan tawaran!'
-                ], RestController::HTTP_BAD_REQUEST);
+        if(count($arr)) {
+            foreach($arr as $value) {
+                if($value) return $value;
             }
         }
+        return "";
+    }
+
+    public function lelang_get()
+    {
+		$lelang = $this->db->get('lelang')->result_array();
+		$tawaran = $this->db->get('tawaran')->result_array();
+		$peserta = $this->db->get('peserta')->result_array();
+
+		$users = [];
+
+		foreach($peserta as $user) {
+			array_push($users, [
+				'nama' => $user['nama'],
+				'username' => $user['username'],
+				'nohp' => $user['nohp'],
+				'alamat' => $user['alamat'],
+			]);
+		}
+
+		return $this->response([
+			'status' => 200,
+			'data' => [
+				'lelang' => $lelang,
+				'tawaran' => $tawaran,
+				'peserta' => $users,
+			]
+		], 200);
+    }
+
+    public function tawaran_post()
+    {
+		$peserta = $this->isLogin();
+
+		if (!$peserta) {
+			return $this->response([
+                'status' => 401,
+                'pesan' => 'mohon login kembali!'
+            ], 401);
+        }
+		
+        $this->form_validation->set_rules('id_lelang', 'Id Lelang', 'required');
+        $this->form_validation->set_rules('tawaran', 'Tawaran', 'required');
+
+        if (!$this->form_validation->run()) {
+            return $this->response([
+                'status' => 400,
+                'pesan' => $this->getError([
+                    form_error('id_lelang'),
+                    form_error('tawaran')
+                ])
+            ], 400);
+        }
+
+        $id = $this->input->post('id_lelang');
+        $query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
+        $tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
+		
+		if ($this->post('tawaran') > $tawaranTertinggi) {
+			$data = [
+				'id_lelang' => $id,
+				'id_peserta' => $peserta['id_peserta'],
+				'harga_tawar' => $this->post('tawaran'),
+				'waktu_penawaran' => date('Y-m-d h:m:s')
+			];
+
+			if ($this->Model_lelang->tambahPenawaran($data) > 0) {
+				return $this->response([
+					'status' => 200,
+					'pesan' => "Tawaran berhasil ditambahkan"
+				], 200);
+			}
+			return $this->response([
+				'status' => 500,
+				'pesan' => "Tawaran gagal ditambahkan"
+			], 500);
+		}
+		$this->response([
+			'status' => false,
+			'pesan' => "Tawaran minimal adalah Rp.{$tawaranTertinggi}"
+		], RestController::HTTP_BAD_REQUEST);
     }
 }
