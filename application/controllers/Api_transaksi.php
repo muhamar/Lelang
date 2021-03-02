@@ -65,6 +65,7 @@ class Api_transaksi extends RestController
         //     ], 401);
         // }
 
+        // $this->form_validation->set_rules('tawaran', 'Id Pesanan<<<<<<< HEAD
         // $this->form_validation->set_rules('tawaran', 'Id Pesanan', 'required');
 		// if (!$this->form_validation->run()) {
         //     return $this->response([
@@ -131,6 +132,6 @@ class Api_transaksi extends RestController
                 'pesan' => 'Data tidak ditemukan'
             ], RestController::HTTP_BAD_REQUEST);
         }
-    }
+	}
 }
 
