@@ -71,7 +71,41 @@ class Api_transaksi extends RestController
                 'pesan' => $this->getError([form_error('id')])
             ], 400);
         }
-        $id = $this->get('id');
 
+		$id = $this->input->post('id');
+		$idPeserta = $peserta['id_peserta'];
+
+		$query = "SELECT * FROM tawaran WHERE id_tawaran = '$id' AND id_peserta = '$idPeserta'";
+		$tawaran = $this->db->query($query)->row_array();
+
+		$idLelang = $tawaran['id_lelang'];
+		$query = "SELECT * FROM lelang WHERE id_lelang = '$idLelang'";
+		$lelang = $this->db->query($query)->row_array();
+
+		$query = "SELECT * FROM tawaran WHERE id_lelang = '$idLelang' ORDER BY harga_tawar DESC LIMIT 1";
+		$tawaranWin = $this->db->query($query)->row_array();
+
+		if(!$tawaran || !$lelang || !$tawaranWin) {
+			return $this->response([
+				'status' => 400,
+				'pesan' => 'someting was wrong!'
+			], 400);
+		}
+
+		if((int) $tawaranWin['id_tawaran'] != (int) $id) {
+			return $this->response([
+                'status' => 400,
+                'pesan' => 'someting was wrong 2!'
+            ], 400);
+		}
+
+		echo json_encode([
+			'data' => [
+				'p' => $peserta,
+				'l' => $lelang,
+				't' => $tawaran,
+				'tw' => $tawaranWin,
+			]
+		]);
     }
 }
