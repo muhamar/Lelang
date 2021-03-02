@@ -109,4 +109,5 @@ class Model_lelang extends CI_Model
         $this->db->insert('tawaran', $data);
         return $this->db->affected_rows();
     }
+
 }

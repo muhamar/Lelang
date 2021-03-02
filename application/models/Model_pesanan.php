@@ -98,4 +98,13 @@ class Model_pesanan extends CI_Model
             return $this->db->get('pesanan')->row_array();
         }
     }
+
+
+	public function tambahPesanan($data)
+	{
+		$this->db->insert('pesanan',$data);
+		return $this->db->affected_rows();
+	}
+
+
 }

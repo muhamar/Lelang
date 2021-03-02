@@ -37,7 +37,18 @@
                                 <th scope="row"><?= $i++; ?></th>
                                 <td><?= $l['nama_ikan_hias']; ?></td>
                                 <td> <?= "Rp " . number_format($l['harga_buka'], 0, ",", "."); ?></td>
-                                <td><?= $l['status']; ?></td>
+                                <td>
+									<?php 
+										$waktuSekarang = date('Y-m-d h-m-s');
+										$waktuSelesaiLelang = $l['waktu_selesai'];
+
+										if($waktuSekarang > $waktuSelesaiLelang){
+											echo "Ditutup";
+										}else{
+											echo "Dibuka";
+										}
+									?>
+                                </td>
                                 <td>
 
                                     <a href="#" data-toggle="modal" data-target="#editLelangModal<?= $l['id_lelang']; ?>" class="btn btn-outline-primary btn-sm">
@@ -232,7 +243,16 @@
                                 </div>
                                 <div class="col-md-1">:</div>
                                 <div class="col-md-8">
-                                    <?= $l['status']; ?>
+								<?php 
+										$waktuSekarang = date('Y-m-d h-m-s');
+										$waktuSelesaiLelang = $l['waktu_selesai'];
+
+										if($waktuSekarang > $waktuSelesaiLelang){
+											echo "Ditutup";
+										}else{
+											echo "Dibuka";
+										}
+									?>
                                 </div>
                             </div>
                         </div>
