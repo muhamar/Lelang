@@ -1,6 +1,9 @@
 <div class="container">
 
-    <?= $this->session->flashdata('pesan'); ?>
+	<?php
+		echo $this->session->flashdata('pesan');
+		unset($_SESSION['pesan']);
+	?>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

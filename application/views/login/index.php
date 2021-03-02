@@ -23,14 +23,16 @@
 <body class="bg-light">
 
     <div class="container">
-
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
             <div class="col-lg-5">
                 <div class="text-center mt-4">
                     <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px">
-                    <?= $this->session->flashdata('pesan'); ?>
+					<?php
+						echo $this->session->flashdata('pesan');
+						unset($_SESSION['pesan']);
+					?>
                 </div>
 
                 <div class="card o-hidden border-0 shadow-lg bg-light ">
@@ -45,9 +47,13 @@
                                     <form class="user" method="post" action="">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" placeholder="Masukkan Username" name="username">
+                                            <small class="form-text text-danger"><?= form_error('username'); ?></small>
+
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" placeholder="Password" name="password">
+                                            <small class="form-text text-danger"><?= form_error('password'); ?></small>
+
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login

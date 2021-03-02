@@ -57,9 +57,6 @@ class Api_transaksi extends RestController
 
     public function confirm_post()
     {
-	
-		
-		
 		$peserta = $this->isLogin();
 		// if (!$peserta) {
 		// 	return $this->response([
@@ -68,22 +65,21 @@ class Api_transaksi extends RestController
         //     ], 401);
         // }
 
-        // $this->form_validation->set_rules('id', 'Id Pesanan', 'required');
+        // $this->form_validation->set_rules('tawaran', 'Id Pesanan', 'required');
 		// if (!$this->form_validation->run()) {
         //     return $this->response([
         //         'status' => 400,
-        //         'pesan' => $this->getError([form_error('id')])
+        //         'pesan' => $this->getError([form_error('tawaran')])
         //     ], 400);
-        // }
-
-		$query = "SELECT * FROM tawaran WHERE id_lelang = 3  ORDER BY harga_tawar DESC LIMIT 1 ";
-		$tawarTertinggi = $this->db->query($query)->row_array();
-		$idPesertaMenang = $tawarTertinggi['id_peserta'];
-		$lelang = $this->db->get_where('lelang',['id_lelang' => $tawarTertinggi['id_lelang']] )->row_array();
-		$waktuSekarang = date('Y-m-d h-m-s');
-		if($waktuSekarang > $lelang['waktu_selesai']){
-			if(4 == $idPesertaMenang){
-				$data = [
+        // }else{
+			$query = "SELECT * FROM tawaran WHERE id_lelang = 3  ORDER BY harga_tawar DESC LIMIT 1 ";
+			$tawarTertinggi = $this->db->query($query)->row_array();
+			$idPesertaMenang = $tawarTertinggi['id_peserta'];
+			$lelang = $this->db->get_where('lelang',['id_lelang' => $tawarTertinggi['id_lelang']] )->row_array();
+			$waktuSekarang = date('Y-m-d h-m-s');
+			if($waktuSekarang > $lelang['waktu_selesai']){
+				if(4 == $idPesertaMenang){
+					$data = [
 					'id_peserta' => 4,
 					'id_lelang' => $lelang['id_lelang'],
 					'jumlah_bayar' => $tawarTertinggi['harga_tawar'],
@@ -91,32 +87,50 @@ class Api_transaksi extends RestController
 					'status_pembayaran' => 'belum lunas',
 					'status_pengiriman' => 'proses',
 					'waktu_pembayaran' => date('Y-m-d h-m-s')
-					];
-				if($this->Model_pesanan->tambahPesanan($data) > 0){
-					return $this->response([
-						'status' => 200,
-						'pesan' => 'Pesanan berhasil ditambahkan'
-					], 200);
+				];
+					if($this->Model_pesanan->tambahPesanan($data) > 0){
+						return $this->response([
+							'status' => 200,
+							'pesan' => 'Pesanan berhasil ditambahkan'
+						], 200);
+					}else{
+						return $this->response([
+							'status' => 400,
+							'pesan' => 'Pesanan gagal ditambahkan'
+						], 400);
+					}
 				}else{
 					return $this->response([
 						'status' => 400,
-						'pesan' => 'Pesanan gagal ditambahkan'
+						'pesan' => 'Sayang sekali anda tidak menang'
 					], 400);
 				}
 			}else{
 				return $this->response([
 					'status' => 400,
-					'pesan' => 'Sayang sekali anda tidak menang'
+					'pesan' => 'Lelang masih berlangsung !'
 				], 400);
 			}
-		}else{
-			return $this->response([
-				'status' => 400,
-				'pesan' => 'Lelang masih berlangsung !'
-			], 400);
-		}
-		
-		
+			// }
+	}
 
+	public function resi_get()
+	{
+		$idPeserta = 1;
+		$query = "SELECT `pesanan`.`id_pesanan`,`pengiriman`.`id_pengiriman`,`pengiriman`.`nomor_resi`,`pengiriman`.`status_pengiriman` FROM `pengiriman` INNER JOIN `pesanan` ON `pengiriman`.`id_pesanan` = `pesanan`.`id_pesanan` WHERE `id_peserta` = '$idPeserta' ";
+        $pengiriman =  $this->db->query($query)->result_array();
+		
+		if($pengiriman){
+            $this->response([
+                'status' => true,
+                'data' => $pengiriman
+            ], RestController::HTTP_OK);
+        } else {
+            $this->response([
+                'status' => false,
+                'pesan' => 'Data tidak ditemukan'
+            ], RestController::HTTP_BAD_REQUEST);
+        }
     }
 }
+

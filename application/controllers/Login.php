@@ -7,6 +7,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+		
     }
     public function index()
     {
@@ -45,6 +46,7 @@ class Login extends CI_Controller
             } else {
                 $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role"alert"> Username tidak ditemukan !</div>');
                 redirect('login');
+
             }
         }
     }
