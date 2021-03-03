@@ -119,7 +119,7 @@
                                 <input type="file" class="form-control" id="gambar" name="gambar" required> <br>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="status">Status</label><br>
                                 <div class="form-check">
@@ -129,7 +129,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
 

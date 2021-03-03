@@ -29,7 +29,6 @@ class Model_lelang extends CI_Model
                     'harga_buka' => $this->input->post('harga_buka'),
                     'gambar' => $gambar,
                     'deskripsi' => $this->input->post('deskripsi'),
-                    'status' => $this->input->post('status'),
                     'waktu_mulai' => $this->input->post('waktu_mulai'),
                     'waktu_selesai' => $this->input->post('waktu_selesai')
                 ];
