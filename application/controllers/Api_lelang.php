@@ -46,37 +46,37 @@ class Api_lelang extends RestController
 
     public function lelang_get()
     {
-		$lelang = $this->db->get('lelang')->result_array();
-		$tawaran = $this->db->get('tawaran')->result_array();
-		$peserta = $this->db->get('peserta')->result_array();
+			$lelang = $this->db->get('lelang')->result_array();
+			$tawaran = $this->db->get('tawaran')->result_array();
+			$peserta = $this->db->get('peserta')->result_array();
 
-		$users = [];
+			$users = [];
 
-		foreach($peserta as $user) {
-			array_push($users, [
-				'nama' => $user['nama'],
-				'username' => $user['username'],
-				'nohp' => $user['nohp'],
-				'alamat' => $user['alamat'],
-			]);
-		}
+			foreach($peserta as $user) {
+				array_push($users, [
+					'nama' => $user['nama'],
+					'username' => $user['username'],
+					'nohp' => $user['nohp'],
+					'alamat' => $user['alamat'],
+				]);
+			}
 
-		return $this->response([
-			'status' => 200,
-			'data' => [
-				'lelang' => $lelang,
-				'tawaran' => $tawaran,
-				'peserta' => $users,
-			]
-		], 200);
+			return $this->response([
+				'status' => 200,
+				'data' => [
+					'lelang' => $lelang,
+					'tawaran' => $tawaran,
+					'peserta' => $users,
+				]
+			], 200);
     }
 
     public function tawaran_post()
     {
-		$peserta = $this->isLogin();
+			$peserta = $this->isLogin();
 
-		if (!$peserta) {
-			return $this->response([
+			if (!$peserta) {
+				return $this->response([
                 'status' => 401,
                 'pesan' => 'mohon login kembali!'
             ], 401);
