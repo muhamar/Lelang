@@ -73,22 +73,26 @@ class Api_transaksi extends RestController
         //         'pesan' => $this->getError([form_error('tawaran')])
         //     ], 400);
         // }else{
-			$query = "SELECT * FROM tawaran WHERE id_lelang = 3  ORDER BY harga_tawar DESC LIMIT 1 ";
+			$idPeserta = 1;
+			$idLelang = 3;
+			$query = "SELECT * FROM tawaran WHERE id_lelang = $idLelang  ORDER BY harga_tawar DESC LIMIT 1 "; 
 			$tawarTertinggi = $this->db->query($query)->row_array();
+
 			$idPesertaMenang = $tawarTertinggi['id_peserta'];
 			$lelang = $this->db->get_where('lelang',['id_lelang' => $tawarTertinggi['id_lelang']] )->row_array();
+
 			$waktuSekarang = date('Y-m-d h-m-s');
 			if($waktuSekarang > $lelang['waktu_selesai']){
-				if(4 == $idPesertaMenang){
+				if($idPeserta == $idPesertaMenang){
 					$data = [
-					'id_peserta' => 4,
+					'id_peserta' => $idPeserta,
 					'id_lelang' => $lelang['id_lelang'],
 					'jumlah_bayar' => $tawarTertinggi['harga_tawar'],
 					'bukti_gambar' => 'logo.png',
 					'status_pembayaran' => 'belum lunas',
 					'status_pengiriman' => 'proses',
 					'waktu_pembayaran' => date('Y-m-d h-m-s')
-				];
+					];
 					if($this->Model_pesanan->tambahPesanan($data) > 0){
 						return $this->response([
 							'status' => 200,

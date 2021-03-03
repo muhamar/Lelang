@@ -3,7 +3,7 @@ class Model_pesanan extends CI_Model
 {
     public function tampilpesanan()
     {
-        $query = "SELECT * FROM pesanan INNER JOIN peserta ON pesanan.id_peserta = peserta.id_peserta INNER JOIN lelang ON pesanan.id_lelang = lelang.id_lelang ORDER BY waktu_pembayaran DESC";
+        $query = "SELECT * FROM pesanan INNER JOIN peserta ON pesanan.id_peserta = peserta.id_peserta INNER JOIN lelang ON pesanan.id_lelang = lelang.id_lelang ORDER BY id_pesanan DESC";
         return $this->db->query($query)->result_array();
     }
 
