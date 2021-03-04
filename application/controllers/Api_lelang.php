@@ -77,50 +77,64 @@ class Api_lelang extends RestController
 
 			if (!$peserta) {
 				return $this->response([
-                'status' => 401,
-                'pesan' => 'mohon login kembali!'
-            ], 401);
-        }
-		
-        $this->form_validation->set_rules('id_lelang', 'Id Lelang', 'required');
-        $this->form_validation->set_rules('tawaran', 'Tawaran', 'required');
-
-        if (!$this->form_validation->run()) {
-            return $this->response([
-                'status' => 400,
-                'pesan' => $this->getError([
-                    form_error('id_lelang'),
-                    form_error('tawaran')
-                ])
-            ], 400);
-        }
-
-        $id = $this->input->post('id_lelang');
-        $query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
-        $tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
-		
-		if ($this->post('tawaran') > $tawaranTertinggi) {
-			$data = [
-				'id_lelang' => $id,
-				'id_peserta' => $peserta['id_peserta'],
-				'harga_tawar' => $this->post('tawaran'),
-				'waktu_penawaran' => date('Y-m-d h:m:s')
-			];
-
-			if ($this->Model_lelang->tambahPenawaran($data) > 0) {
-				return $this->response([
-					'status' => 200,
-					'pesan' => "Tawaran berhasil ditambahkan"
-				], 200);
+					'status' => 401,
+					'pesan' => 'mohon login kembali!'
+				], 401);
 			}
-			return $this->response([
-				'status' => 500,
-				'pesan' => "Tawaran gagal ditambahkan"
-			], 500);
-		}
-		$this->response([
-			'status' => false,
-			'pesan' => "Tawaran minimal adalah Rp.{$tawaranTertinggi}"
-		], RestController::HTTP_BAD_REQUEST);
+		
+			$this->form_validation->set_rules('id_lelang', 'Id Lelang', 'required');
+			$this->form_validation->set_rules('tawaran', 'Tawaran', 'required');
+
+			if (!$this->form_validation->run()) {
+				return $this->response([
+					'status' => 400,
+					'pesan' => $this->getError([
+							form_error('id_lelang'),
+							form_error('tawaran')
+					])
+				], 400);
+			}
+
+			$id = $this->input->post('id_lelang');
+			$lelang = $this->db->get_where('lelang',[ 'id_lelang' =>  $id])->row_array();
+
+			if((int)$lelang['harga_buka'] > (int) $this->post('tawaran')) {
+				$x = $lelang['harga_buka'];
+				return $this->response([
+					'status' => false,
+					'pesan' => "Tawaran minimal adalah Rp.{$x}"
+				], RestController::HTTP_BAD_REQUEST);
+			}
+
+			$query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
+			$tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
+		
+			if ($this->post('tawaran') > $tawaranTertinggi) {
+				$data = [
+					'id_lelang' => $id,
+					'id_peserta' => $peserta['id_peserta'],
+					'harga_tawar' => $this->post('tawaran'),
+					'waktu_penawaran' => date('Y-m-d h:m:s')
+				];
+
+				if ($this->Model_lelang->tambahPenawaran($data) > 0) {
+					$idP = $peserta['id_peserta'];
+					$query = "SELECT * FROM tawaran WHERE id_peserta = '$idP' ORDER BY id_tawaran DESC LIMIT 1";
+					$tawaran = $this->db->query($query)->row_array();
+					return $this->response([
+						'status' => 200,
+						'pesan' => "Tawaran berhasil ditambahkan",
+						'tawaran' => $tawaran
+					], 200);
+				}
+				return $this->response([
+					'status' => 500,
+					'pesan' => "Tawaran gagal ditambahkan"
+				], 500);
+			}
+			$this->response([
+				'status' => false,
+				'pesan' => "Tawaran minimal adalah Rp.{$tawaranTertinggi}"
+			], RestController::HTTP_BAD_REQUEST);
     }
 }

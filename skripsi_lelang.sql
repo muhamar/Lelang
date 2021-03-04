@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2021 at 03:12 PM
+-- Generation Time: Mar 04, 2021 at 12:16 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -62,8 +62,11 @@ CREATE TABLE `lelang` (
 --
 
 INSERT INTO `lelang` (`id_lelang`, `nama_ikan_hias`, `harga_buka`, `gambar`, `deskripsi`, `waktu_mulai`, `waktu_selesai`) VALUES
-(2, 'Light Moon', 200000, '121030262_101111165109024_4721727974211074648_n-removebg-preview.png', 'Ikan hiu makan tai tolo nah', '2021-02-18 18:29:00', '2021-03-01 13:24:05'),
-(3, 'Light Sun', 100000, 'logo.png', 'Ikan ini bersaudara dengan ikan hiuwersdfsdfsdf', '2021-02-18 18:30:00', '2021-03-03 18:30:00');
+(2, 'Light Moon', 200000, '121030262_101111165109024_4721727974211074648_n-removebg-preview.png', 'Ikan hiu makan tai tolo nah', '2021-02-18 18:29:00', '2021-03-02 19:53:11'),
+(3, 'Light Sun', 100000, 'logo.png', 'Ikan ini bersaudara dengan ikan hiuwersdfsdfsdf', '2021-02-18 18:30:00', '2021-03-02 18:30:00'),
+(7, 'menu s', 300000, 'Koala1.jpg', 'no comment', '2021-03-11 17:24:00', '2021-03-15 17:24:00'),
+(8, 'piranha', 300000, 'Jellyfish.jpg', 'no comment', '2021-03-03 07:58:00', '2021-03-03 07:59:00'),
+(9, 'hiu', 2121, 'Desert.jpg', 'no commet', '2021-03-03 08:00:00', '2021-03-26 08:01:00');
 
 -- --------------------------------------------------------
 
@@ -84,7 +87,8 @@ CREATE TABLE `pengiriman` (
 
 INSERT INTO `pengiriman` (`id_pengiriman`, `id_pesanan`, `status_pengiriman`, `nomor_resi`) VALUES
 (25, 2, 'dikirim/selesai', 'dqwe123'),
-(27, 1, 'dikirim/selesai', '123123123');
+(27, 1, 'dikirim/selesai', '123123123'),
+(28, 19, 'dikirim/selesai', 'erituoperjiogdgf d fsdf sd');
 
 -- --------------------------------------------------------
 
@@ -109,7 +113,9 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`id_pesanan`, `id_peserta`, `id_lelang`, `id_tawaran`, `jumlah_bayar`, `bukti_gambar`, `status_pembayaran`, `status_pengiriman`, `waktu_pembayaran`) VALUES
-(12, 16, 2, 22, 920000334, '1614779673GbSMRpRI87mEfv6.jpg', '', 'proses', '2021-03-02 19:03:33');
+(17, 19, 3, 33, 700005, '1614827198fGwj6iZfmTNOZ7F.png', 'pending', 'proses', '2021-03-03 21:03:38'),
+(18, 19, 2, 23, 2147483647, '1614827214g4nABsC6Dm292I7.png', 'pending', 'proses', '2021-03-03 21:03:54'),
+(19, 20, 8, 38, 300000, '1614846306YTmwzJbINrypouW.png', 'lunas', 'dikirim/selesai', '2021-03-04 01:03:06');
 
 -- --------------------------------------------------------
 
@@ -146,7 +152,10 @@ INSERT INTO `peserta` (`id_peserta`, `nama`, `username`, `nohp`, `alamat`, `pass
 (15, 'User1', 'User1', '081244244244', 'Jl.abcs', 'User1'),
 (16, 'gowadede', 'dedede', NULL, '', 'deded'),
 (17, 'Dede', 'User', NULL, '', 'pass'),
-(18, 'Test', 'Test', NULL, '', 'Test');
+(18, 'Test', 'Test', NULL, '', 'Test'),
+(19, 'dede', 'dede', 'dede', 'dededede', 'dede'),
+(20, 'Testting', 'Test1', '0800', 'Makassar', 'test1'),
+(21, 'Amar', 'Amar', NULL, '', 'Amar');
 
 -- --------------------------------------------------------
 
@@ -182,7 +191,22 @@ INSERT INTO `tawaran` (`id_tawaran`, `id_lelang`, `id_peserta`, `harga_tawar`, `
 (19, 2, 16, 92000033, '2021-03-01 00:03:40'),
 (20, 2, 16, 92000033, '2021-03-01 00:03:31'),
 (21, 2, 16, 92000033, '2021-03-01 00:03:35'),
-(22, 2, 16, 920000334, '2021-03-01 00:03:28');
+(22, 2, 16, 920000334, '2021-03-01 00:03:28'),
+(23, 2, 19, 2147483647, '2021-03-03 02:03:48'),
+(29, 3, 19, 700000, '2021-03-03 02:03:39'),
+(30, 3, 19, 700001, '2021-03-03 02:03:00'),
+(31, 3, 19, 700003, '2021-03-03 02:03:23'),
+(32, 3, 19, 700004, '2021-03-03 02:03:46'),
+(33, 3, 19, 700005, '2021-03-03 02:03:23'),
+(35, 9, 20, 1000, '2021-03-04 01:03:46'),
+(36, 9, 20, 1001, '2021-03-04 01:03:15'),
+(37, 9, 20, 2122, '2021-03-04 01:03:38'),
+(38, 8, 20, 300000, '2021-03-04 01:03:16'),
+(39, 9, 20, 10000, '2021-03-04 01:03:12'),
+(40, 9, 20, 12000, '2021-03-04 01:03:43'),
+(41, 9, 20, 50000, '2021-03-04 02:03:21'),
+(42, 9, 21, 600000, '2021-03-04 03:03:01'),
+(43, 9, 19, 705009, '2021-03-04 03:03:20');
 
 -- --------------------------------------------------------
 
@@ -256,31 +280,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `lelang`
 --
 ALTER TABLE `lelang`
-  MODIFY `id_lelang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_lelang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
-  MODIFY `id_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tawaran`
 --
 ALTER TABLE `tawaran`
-  MODIFY `id_tawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_tawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

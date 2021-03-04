@@ -125,7 +125,7 @@ class Api_transaksi extends RestController
 		}
 		
 		
-		$upload_gambar = $_FILES['file']['name'];
+		$upload_gambar = $_FILES['file'];
 		
 		if (!$upload_gambar) {
 			return $this->response([
@@ -134,7 +134,7 @@ class Api_transaksi extends RestController
 			], 400);
 		}
 		
-		$filename = time().$this->rdmStr(15) . '.' . pathinfo($upload_gambar, PATHINFO_EXTENSION);
+		$filename = time().$this->rdmStr(15) . '.' . 'png';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size'] = '8000';
 		$config['upload_path'] = './assets/upload/';
@@ -173,6 +173,7 @@ class Api_transaksi extends RestController
 		}
 	}
 
+
 	public function resi_get()
 	{
 		$peserta = $this->isLogin();
@@ -183,13 +184,12 @@ class Api_transaksi extends RestController
 			], 401);
 		}
 
-
 		$idPeserta = $peserta['id_peserta'];
 		$idTawaran = $this->input->get('id_tawaran');
 
 		$query = "SELECT * FROM pesanan WHERE id_peserta = '$idPeserta' AND id_tawaran = '$idTawaran'";
 		$pesanan =  $this->db->query($query)->row_array();
-
+		
 		if(!$pesanan) {
 			$this->response([
 					'status' => false,

@@ -70,7 +70,7 @@
                         <div class="card-body">
                             <div class="container text-center">
                                 <?php if ($pm['bukti_gambar']) : ?>
-                                    <img src="<?= base_url('assets/img/' . $pm['bukti_gambar']); ?>" alt="" width="350px">
+                                    <img src="<?= base_url('assets/upload/' . $pm['bukti_gambar']); ?>" alt="" width="350px">
                                 <?php else : ?>
                                     Tidak ada gambar !
                                 <?php endif; ?>
