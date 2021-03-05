@@ -56,10 +56,6 @@ class Model_lelang extends CI_Model
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('gambar')) {
-                $gambar_lama = $data['lelang']['gambar'];
-                if ($gambar_lama != 'logo.png') {
-                    unlink('./assets/img/' . $gambar_lama);
-                }
                 $gambar_baru = $this->upload->data('file_name');
                 $this->db->set('gambar', $gambar_baru);
             } else {
@@ -67,21 +63,13 @@ class Model_lelang extends CI_Model
             }
         }
 
-        $waktu_mulai = $this->input->post('waktu_mulai');
-        $waktu_selesai = $this->input->post('waktu_selesai');
-        if ($waktu_mulai > $waktu_selesai) {
-            $status = 'ditutup';
-        } else {
-            $status = 'dibuka';
-        }
-
+    
         $data = [
             'nama_ikan_hias' => $this->input->post('nama'),
             'harga_buka' => $this->input->post('harga_buka'),
             'deskripsi' => $this->input->post('deskripsi'),
-            'status' => $status,
-            'waktu_mulai' => $waktu_mulai,
-            'waktu_selesai' => $waktu_selesai
+            'waktu_mulai' => $this->input->post('waktu_mulai'),
+            'waktu_selesai' =>$this->input->post('waktu_selesai')
         ];
         $this->db->set($data);
         $this->db->where('id_lelang', $id);

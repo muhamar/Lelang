@@ -109,27 +109,17 @@
                             <div class="form-group">
                                 <label for="harga">Harga Buka/Awal</label>
                                 <input type="text" class="form-control" id="harga" name="harga_buka" placeholder="Rp." required>
+								
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="gambar">Gambar</label>
                                 <input type="file" class="form-control" id="gambar" name="gambar" required> <br>
                             </div>
                         </div>
-                        <!-- <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="status">Status</label><br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="status" value="dibuka" name="status" required>
-                                    <label class="form-check-label" for="status">
-                                        Di buka
-                                    </label>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="row">
 
@@ -312,7 +302,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('lelang/edit/' . $l['id_lelang']); ?>" method="post">
+                    <form action="<?= base_url('lelang/edit/' . $l['id_lelang']); ?>" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -324,6 +314,8 @@
                                 <div class="form-group">
                                     <label for="harga">Harga Buka/Awal</label>
                                     <input type="text" class="form-control" id="harga" name="harga_buka" value="<?= $l['harga_buka']; ?>">
+									<td> </td>
+
                                 </div>
                             </div>
                         </div>
