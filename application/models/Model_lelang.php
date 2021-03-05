@@ -18,7 +18,7 @@ class Model_lelang extends CI_Model
         if ($upload_gambar) {
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '8000';
-            $config['upload_path'] = './assets/img/';
+            $config['upload_path'] = './assets/img/lelang/';
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('gambar')) {
@@ -52,7 +52,7 @@ class Model_lelang extends CI_Model
         if ($upload_gambar) {
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '8000';
-            $config['upload_path'] = './assets/img/';
+            $config['upload_path'] = './assets/img/lelang/';
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('gambar')) {

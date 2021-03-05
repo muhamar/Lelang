@@ -92,11 +92,10 @@ class Model_pesanan extends CI_Model
     {
         $awalTanggal = $this->input->post('awalTanggal');
         $akhirTanggal = $this->input->post('akhirTanggal');
-        if ($this->db->get_where('pesanan', ['status_pembayaran' => 'lunas'])) {
-            $this->db->select_sum('jumlah_bayar');
-            $this->db->where("waktu_pembayaran BETWEEN '$awalTanggal' AND '$akhirTanggal' ");
-            return $this->db->get('pesanan')->row_array();
-        }
+        $this->db->select_sum('jumlah_bayar');
+        $this->db->where("status_pembayaran = 'lunas' AND waktu_pembayaran BETWEEN '$awalTanggal' AND '$akhirTanggal'");
+        return $this->db->get('pesanan')->row_array();
+			
     }
 
 

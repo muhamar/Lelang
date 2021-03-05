@@ -14,9 +14,6 @@ class Laporan extends CI_Controller
     {
         $data['aktif'] = "laporan";
         $data['judul'] = "Halaman - Laporan";
-
-
-
         $this->load->library('mypdf');
         if ($this->input->post('awalTanggal') && $this->input->post('akhirTanggal')) {
 

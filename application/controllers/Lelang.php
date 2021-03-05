@@ -8,6 +8,10 @@ class Lelang extends CI_Controller
         parent::__construct();
         $this->load->model('Model_lelang');
         $this->load->library('form_validation');
+
+		if (!$this->session->userdata('username')) {
+			redirect('login');
+		}
     }
 
     public function index()

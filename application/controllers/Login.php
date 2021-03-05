@@ -7,7 +7,6 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-		
     }
     public function index()
     {
@@ -15,15 +14,12 @@ class Login extends CI_Controller
         if ($this->session->userdata('username')) {
             redirect('dashboard');
         }
-
         $this->form_validation->set_rules('username', 'Username', 'required|trim', [
             'required' => 'Username tidak boleh kosong !'
         ]);
-
         $this->form_validation->set_rules('password', 'Password', 'required|trim', [
             'required' => 'Password tidak boleh kosong !'
         ]);
-
         if ($this->form_validation->run() == false) {
             $data['judul'] = 'Form-Login';
             $this->load->view('login/index.php');
