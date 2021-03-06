@@ -1,3 +1,4 @@
+
 <div class="container">
 
 	<?php
@@ -42,9 +43,9 @@
                                 <td> <?= "Rp " . number_format($l['harga_buka'], 0, ",", "."); ?></td>
                                 <td>
 									<?php 
-										$waktuSekarang = date('Y-m-d h-m-s');
+										date_default_timezone_set('Asia/Makassar');
+										$waktuSekarang = date('Y-m-d H:i:s');
 										$waktuSelesaiLelang = $l['waktu_selesai'];
-
 										if($waktuSekarang > $waktuSelesaiLelang){
 											echo "Ditutup";
 										}else{

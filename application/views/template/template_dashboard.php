@@ -40,7 +40,7 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
                 <div class="sidebar-brand-icon ">
                     <!-- <i class="fas fa-laugh-wink"></i> -->
-                    <img src="<?= base_url('assets/img/logo_png.png'); ?>" alt="" width="60px">
+                    <img src="<?= base_url('assets/img/favicon/logo_png.png'); ?>" alt="" width="60px">
                 </div>
                 <div class="sidebar-brand-text mx-3">AABETTA.ID </div>
             </a>

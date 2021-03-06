@@ -18,12 +18,11 @@ class Model_lelang extends CI_Model
         if ($upload_gambar) {
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '8000';
-            $config['upload_path'] = './assets/img/lelang/';
+            $config['upload_path'] = './assets/img/';
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('gambar')) {
                 $gambar = $this->upload->data('file_name');
-
                 $data = [
                     'nama_ikan_hias' => $this->input->post('nama'),
                     'harga_buka' => $this->input->post('harga_buka'),
@@ -52,7 +51,7 @@ class Model_lelang extends CI_Model
         if ($upload_gambar) {
             $config['allowed_types'] = 'gif|jpg|png';
             $config['max_size'] = '8000';
-            $config['upload_path'] = './assets/img/lelang/';
+            $config['upload_path'] = './assets/img/';
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('gambar')) {

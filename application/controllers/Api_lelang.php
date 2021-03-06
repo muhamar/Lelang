@@ -49,7 +49,6 @@ class Api_lelang extends RestController
 			$lelang = $this->db->get('lelang')->result_array();
 			$tawaran = $this->db->get('tawaran')->result_array();
 			$peserta = $this->db->get('peserta')->result_array();
-
 			$users = [];
 
 			foreach($peserta as $user) {
@@ -83,7 +82,9 @@ class Api_lelang extends RestController
 			}
 		
 			$this->form_validation->set_rules('id_lelang', 'Id Lelang', 'required');
-			$this->form_validation->set_rules('tawaran', 'Tawaran', 'required');
+			$this->form_validation->set_rules('tawaran', 'Tawaran', 'required|max_length[8]',[
+				'max_length' => 'Jumlah tawaran maksimal adalah Rp. 9.999.999 !'
+			]);
 
 			if (!$this->form_validation->run()) {
 				return $this->response([
@@ -98,16 +99,16 @@ class Api_lelang extends RestController
 			$id = $this->input->post('id_lelang');
 			$lelang = $this->db->get_where('lelang',[ 'id_lelang' =>  $id])->row_array();
 
-			if((int)$lelang['harga_buka'] > (int) $this->post('tawaran')) {
+			$query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
+			$tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
+
+			if((int)$lelang['harga_buka'] > (int) $this->post('tawaran') && !$tawaranTertinggi) {
 				$x = $lelang['harga_buka'];
 				return $this->response([
 					'status' => false,
 					'pesan' => "Tawaran minimal adalah Rp.{$x}"
 				], RestController::HTTP_BAD_REQUEST);
 			}
-
-			$query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
-			$tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
 		
 			if ($this->post('tawaran') > $tawaranTertinggi) {
 				$data = [
@@ -134,7 +135,7 @@ class Api_lelang extends RestController
 			}
 			$this->response([
 				'status' => false,
-				'pesan' => "Tawaran minimal adalah Rp.{$tawaranTertinggi}"
+				'pesan' => "Tawaran harus diatas Rp.{$tawaranTertinggi}"
 			], RestController::HTTP_BAD_REQUEST);
     }
 }

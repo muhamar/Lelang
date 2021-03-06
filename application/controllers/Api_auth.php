@@ -51,9 +51,16 @@ class Api_auth extends RestController
 
     public function daftar_post()
     {
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[peserta.username]');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required',[
+			'required' => 'Nama tidak boleh kosong!'
+		]);
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[peserta.username]',[
+			'required' => 'Username tidak boleh kosong',
+			'is_unique' => 'Username telah terdaftar!'
+		]);
+        $this->form_validation->set_rules('password', 'Password', 'required',[
+			'required' => 'Password tidak boleh kosong!'
+		]);
 
         if (!$this->form_validation->run()) {
             return $this->response([
@@ -93,8 +100,12 @@ class Api_auth extends RestController
         $username = $this->post('username');
         $password = $this->post('password');
 
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required',[
+			'required' => 'Username tidak boleh kosong!'
+		]);
+        $this->form_validation->set_rules('password', 'Password', 'required',[
+			'required' => 'Password tidak boleh kosong!'
+		]);
 
         if ($this->form_validation->run() == false) {
             return $this->response([
@@ -153,9 +164,17 @@ class Api_auth extends RestController
             ], 401);
         }
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
-        $this->form_validation->set_rules('nohp', 'Nohp', 'required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required',[
+			'required' => 'Nama tidak boleh kosong!'
+		]);
+        $this->form_validation->set_rules('nohp', 'Nohp', 'required|numeric|min_length[10]',[
+			'required' => 'Nohp tidak boleh kosong!',
+			'numeric' => 'Nohp harus angka!',
+			'min_length' => 'Nohp harus diatas 10 angka!'
+		]);
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required',[
+			'required' => 'Alamat tidak boleh kosong!'
+		]);
 
         if (!$this->form_validation->run()) {
             return $this->response([
