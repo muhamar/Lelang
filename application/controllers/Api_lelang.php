@@ -73,7 +73,6 @@ class Api_lelang extends RestController
     public function tawaran_post()
     {
 			$peserta = $this->isLogin();
-
 			if (!$peserta) {
 				return $this->response([
 					'status' => 401,
@@ -98,9 +97,16 @@ class Api_lelang extends RestController
 
 			$id = $this->input->post('id_lelang');
 			$lelang = $this->db->get_where('lelang',[ 'id_lelang' =>  $id])->row_array();
-
 			$query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
 			$tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
+			date_default_timezone_set('Asia/Makassar');
+			$waktuSekarang = date('Y-m-d H:i:s');
+			if($waktuSekarang > $lelang['waktu_selesai']){
+				return $this->response([
+					'status' => false,
+					'pesan' => "Waktu lelang telah berakhir silahkan kembali !"
+				], RestController::HTTP_BAD_REQUEST);
+			}
 
 			if((int)$lelang['harga_buka'] > (int) $this->post('tawaran') && !$tawaranTertinggi) {
 				$x = $lelang['harga_buka'];
@@ -118,7 +124,7 @@ class Api_lelang extends RestController
 					'waktu_penawaran' => date('Y-m-d h:m:s')
 				];
 
-				if ($this->Model_lelang->tambahPenawaran($data) > 0) {
+				if ($this->Model_lelang->tambahPenawaran($data) > 0 ) {
 					$idP = $peserta['id_peserta'];
 					$query = "SELECT * FROM tawaran WHERE id_peserta = '$idP' ORDER BY id_tawaran DESC LIMIT 1";
 					$tawaran = $this->db->query($query)->row_array();

@@ -33,7 +33,7 @@
 
             <div class="col-lg-5">
                 <div class="text-center mt-4">
-                    <img src="<?= base_url('assets/img/logo.png'); ?>" width="150px">
+                    <img src="<?= base_url('assets/img/favicon/logo_png.png'); ?>" width="150px">
 					<?php
 						echo $this->session->flashdata('pesan');
 						unset($_SESSION['pesan']);
