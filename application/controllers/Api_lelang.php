@@ -99,12 +99,19 @@ class Api_lelang extends RestController
 			$lelang = $this->db->get_where('lelang',[ 'id_lelang' =>  $id])->row_array();
 			$query = "SELECT harga_tawar FROM tawaran WHERE id_lelang = '$id' ORDER BY harga_tawar DESC LIMIT 1 ";
 			$tawaranTertinggi = (int) $this->db->query($query)->row_array()['harga_tawar'];
+
 			date_default_timezone_set('Asia/Makassar');
 			$waktuSekarang = date('Y-m-d H:i:s');
 			if($waktuSekarang > $lelang['waktu_selesai']){
 				return $this->response([
 					'status' => false,
 					'pesan' => "Waktu lelang telah berakhir silahkan kembali !"
+				], RestController::HTTP_BAD_REQUEST);
+			}
+			if($peserta['nohp'] == NULL && $peserta['alamat'] == NULL){
+				return $this->response([
+					'status' => false,
+					'pesan' => "Lengkapi data diri terlebih dahulu!"
 				], RestController::HTTP_BAD_REQUEST);
 			}
 
