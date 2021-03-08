@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <img src="<?= base_url(); ?>assets/img/logo.png" style="position: absolute; width: 100px; height: auto;">
+    <img src="<?= base_url(); ?>assets/img/favicon/logo_png.png" style="position: absolute; width: 120px; height: auto;">
     <table style="width:100%;">
         <tr>
             <td align="center">
