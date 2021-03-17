@@ -108,7 +108,7 @@ class Api_lelang extends RestController
 					'pesan' => "Waktu lelang telah berakhir silahkan kembali !"
 				], RestController::HTTP_BAD_REQUEST);
 			}
-			if($peserta['nohp'] == NULL && $peserta['alamat'] == NULL){
+			if($peserta['nohp'] == NULL || $peserta['alamat'] == NULL){
 				return $this->response([
 					'status' => false,
 					'pesan' => "Lengkapi data diri terlebih dahulu!"
