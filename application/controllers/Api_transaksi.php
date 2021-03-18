@@ -77,7 +77,8 @@ class Api_transaksi extends RestController
 
 		$idPeserta = $peserta['id_peserta'];
 		$idTawaran = $this->input->post('id_tawaran');
-		$now = date('Y-m-d h-m-s');
+		date_default_timezone_set('Asia/Makassar');
+		$now = date('Y-m-d H:i:s');
 
 		$query = "SELECT * FROM tawaran WHERE id_tawaran = $idTawaran AND id_peserta = $idPeserta LIMIT 1";
 		$tawaran = $this->db->query($query)->row_array();

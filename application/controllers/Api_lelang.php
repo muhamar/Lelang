@@ -128,7 +128,7 @@ class Api_lelang extends RestController
 					'id_lelang' => $id,
 					'id_peserta' => $peserta['id_peserta'],
 					'harga_tawar' => $this->post('tawaran'),
-					'waktu_penawaran' => date('Y-m-d h:m:s')
+					'waktu_penawaran' => date('Y-m-d H:i:s')
 				];
 
 				if ($this->Model_lelang->tambahPenawaran($data) > 0 ) {
