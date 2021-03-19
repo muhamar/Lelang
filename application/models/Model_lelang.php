@@ -4,6 +4,7 @@ class Model_lelang extends CI_Model
     public function tampilLelang($id = null)
     {
         if ($id == null) {
+			$this->db->order_by('id_lelang','DESC');
             return $this->db->get('lelang')->result_array();
         } else {
             return $this->db->get_where('lelang', ['id_lelang' => $id])->row_array();

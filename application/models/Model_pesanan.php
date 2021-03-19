@@ -27,9 +27,11 @@ class Model_pesanan extends CI_Model
     {
         if ($id == null) {
             $query = "SELECT `pesanan`.`id_pesanan`,`pengiriman`.`id_pengiriman`,`pengiriman`.`nomor_resi`,`pengiriman`.`status_pengiriman` FROM `pengiriman` INNER JOIN `pesanan` ON `pengiriman`.`id_pesanan` = `pesanan`.`id_pesanan` WHERE `status_pembayaran` = 'lunas' ";
+			$this->db->order_by('id_pengiriman','DESC');
             return $this->db->query($query)->result_array();
         } else {
             $query = "SELECT `pesanan`.`id_pesanan`,`pengiriman`.`id_pengiriman`,`pengiriman`.`nomor_resi`,`pengiriman`.`status_pengiriman` FROM `pengiriman` INNER JOIN `pesanan` ON `pengiriman`.`id_pesanan` = `pesanan`.`id_pesanan` WHERE `id_peserta` = '$id' ";
+			$this->db->order_by('id_pengiriman','DESC');
             return $this->db->query($query)->result_array();
         }
         // return $this->db->get('pengiriman')->result_array();

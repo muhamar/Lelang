@@ -4,6 +4,7 @@ class Model_user extends CI_Model
     public function tampilUser($id = null)
     {
         if ($id == null) {
+			$this->db->order_by('id_peserta','DESC');
             return $this->db->get('peserta')->result_array();
         } else {
             return $this->db->get_where('peserta', ['id_peserta' => $id])->row_array();
