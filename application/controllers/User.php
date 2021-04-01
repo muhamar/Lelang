@@ -18,7 +18,7 @@ class User extends CI_Controller
         $data['aktif'] = "user";
         $data['judul'] = "Halaman - Kelola - User";
         $data['peserta'] = $this->Model_user->tampilUser();
-        $this->template->load('template/template_dashboard.php', 'user/index.php', $data);
+        $this->template->load('template/template_dashboard.php', 'User/index.php', $data);
     }
 
     public function edit($id)

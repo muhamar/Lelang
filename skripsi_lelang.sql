@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Mar 2021 pada 08.01
+-- Waktu pembuatan: 23 Mar 2021 pada 08.09
 -- Versi server: 10.4.17-MariaDB
 -- Versi PHP: 7.3.27
 
@@ -62,8 +62,12 @@ CREATE TABLE `lelang` (
 --
 
 INSERT INTO `lelang` (`id_lelang`, `nama_ikan_hias`, `harga_buka`, `gambar`, `deskripsi`, `waktu_mulai`, `waktu_selesai`) VALUES
-(18, 'Ikan Emas', 200000, 'IMG-20181011-WA0102.jpg', 'abcd', '2021-03-05 11:34:00', '2021-03-06 11:31:00'),
-(19, 'asdf', 100000, 'IMG-20180812-WA0005.jpg', 'abcd', '2021-03-12 11:34:00', '2021-03-23 11:34:00');
+(33, 'Plakat Nemo Koi', 100000, 'plakat_nemo_koi-022.png', 'Ikan cupang plakat nemo koi\r\nWarna sesuai dengan gambar lelang\r\nPengiriman / Ekspedisi melalui :\r\n- TIKI\r\n- JNE\r\nCatatan :\r\nPengiriman dikirim dengan tambahan fasilitas karantina.', '2021-03-18 01:00:00', '2021-03-18 15:30:00'),
+(34, 'Dumbo R', 800000, 'dumbo_r-02.png', 'Ikan cupang dumbo r\r\nWarna sesuai dengan gambar lelang\r\nPengiriman / Ekspedisi melalui :\r\n- TIKI\r\n- JNE\r\nCatatan :\r\nPengiriman dikirim dengan tambahan fasilitas karantina.', '2021-03-21 23:00:00', '2021-03-23 23:00:00'),
+(35, 'Soft Gold', 50000, 'softgold-02.png', 'Ikan cupang soft gold\r\nWarna sesuai dengan gambar lelang\r\nPengiriman / Ekspedisi melalui :\r\n- TIKI\r\n- JNE\r\nCatatan :\r\nPengiriman dikirim dengan tambahan fasilitas karantina.', '2021-03-18 22:00:00', '2021-03-19 16:00:00'),
+(36, 'Plakat kuper', 100000, 'plakat_kuper.png', 'Ikan cupang plakat kuper\r\nWarna sesuai dengan gambar lelang\r\nPengiriman / Ekspedisi melalui :\r\n- TIKI\r\n- JNE\r\nCatatan :\r\nPengiriman dikirim dengan tambahan fasilitas karantina.', '2021-03-18 14:00:00', '2021-03-19 14:00:00'),
+(37, 'Plakat Multi Color', 200000, 'plakat_multi_color-02.png', 'Ikan cupang plakat multi color\r\nWarna sesuai dengan gambar lelang\r\nPengiriman / Ekspedisi melalui :\r\n- TIKI\r\n- JNE\r\nCatatan :\r\nPengiriman dikirim dengan tambahan fasilitas karantina.', '2021-03-18 12:10:00', '2021-03-20 14:15:00'),
+(38, 'Plakat Nemo Klasik', 100000, 'plakat_nemo_klasik_-02.png', 'Ikan cupang plakat nemo klasik\r\nWarna sesuai dengan gambar lelang\r\nPengiriman / Ekspedisi melalui :\r\n- TIKI\r\n- JNE\r\nCatatan :\r\nPengiriman dikirim dengan tambahan fasilitas karantina.', '2021-03-25 07:15:00', '2021-03-26 21:20:00');
 
 -- --------------------------------------------------------
 
@@ -83,7 +87,7 @@ CREATE TABLE `pengiriman` (
 --
 
 INSERT INTO `pengiriman` (`id_pengiriman`, `id_pesanan`, `status_pengiriman`, `nomor_resi`) VALUES
-(29, 21, 'dikirim/selesai', 'B123123123');
+(33, 48, 'dikirim/selesai', '0134412698500921');
 
 -- --------------------------------------------------------
 
@@ -108,8 +112,7 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`id_pesanan`, `id_peserta`, `id_lelang`, `id_tawaran`, `jumlah_bayar`, `bukti_gambar`, `status_pembayaran`, `status_pengiriman`, `waktu_pembayaran`) VALUES
-(21, 1, 18, 66, 55555555, '1615121008bjz6PajZKnDF0LQ.png', 'lunas', 'dikirim/selesai', '2021-03-06 17:03:28'),
-(22, 1, 19, 67, 100000, '1615121906SDIIZ8Hob8kfGGn.png', 'pending', 'proses', '2021-03-06 17:03:26');
+(48, 39, 33, 92, 175000, '1616082555a8qHzEt7sADrVrg.png', 'lunas', 'dikirim/selesai', '2021-03-18 15:49:15');
 
 -- --------------------------------------------------------
 
@@ -131,12 +134,10 @@ CREATE TABLE `peserta` (
 --
 
 INSERT INTO `peserta` (`id_peserta`, `nama`, `username`, `nohp`, `alamat`, `password`) VALUES
-(1, 'amar', 'amar', '081', 'Gggvv', 'amar'),
-(23, 'Maru', 'Maru', '081', 'Jl.an', 'Maru'),
-(24, 'Yura', 'Yura', NULL, '', 'Yura'),
-(25, 'Abcd', 'Abcd', NULL, '', 'Abcd'),
-(26, 'Amar', 'Aass', NULL, '', 'Ssasd'),
-(27, 'Amar', 'Aas', NULL, '', 'Scscsc');
+(36, 'Dian', 'Dian', '081244800858', 'Jl. Sejati No.5', 'Dian'),
+(37, 'Fany', 'Fany', '081244900909', 'Jl.Antang Raya No.1', 'Fany'),
+(38, 'Arianto', 'Arianto', '081244765900', 'Jl. Antang Raya No.2', 'Arianto'),
+(39, 'Muhamar', 'Amar', '081244828616', 'Jl. Dg. Hayo Lr.1 No.7', 'Amar');
 
 -- --------------------------------------------------------
 
@@ -157,10 +158,11 @@ CREATE TABLE `tawaran` (
 --
 
 INSERT INTO `tawaran` (`id_tawaran`, `id_lelang`, `id_peserta`, `harga_tawar`, `waktu_penawaran`) VALUES
-(64, 18, 1, 200000, '2021-03-05 17:03:21'),
-(65, 18, 1, 2000001, '2021-03-05 17:03:30'),
-(66, 18, 1, 55555555, '2021-03-05 17:03:57'),
-(67, 19, 1, 100000, '2021-03-07 00:03:20');
+(85, 33, 36, 125000, '2021-03-18 15:23:48'),
+(86, 33, 37, 145000, '2021-03-18 15:24:58'),
+(87, 33, 38, 150000, '2021-03-18 15:25:52'),
+(88, 36, 39, 135000, '2021-03-18 15:29:16'),
+(92, 33, 39, 175000, '2021-03-18 15:47:42');
 
 -- --------------------------------------------------------
 
@@ -178,7 +180,7 @@ CREATE TABLE `tentang_toko` (
 --
 
 INSERT INTO `tentang_toko` (`gambar`, `tentang_aabetta`) VALUES
-('logo1.png', 'Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, \r\n\r\n\r\nToko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, Toko ini adalah toko yang berjalan di bisnis penjualan ikan hias yang berada di pusat kota makassar, ');
+('121030262_101111165109024_4721727974211074648_n1.jpg', '       \r\nAabetta.id merupakan salah satu toko penjualan ikan hias dengan konsep pelelangan online di kota Makassar, untuk tokonya sendiri berlokasi di Jl. Borong Indah Ruko No. 78, Kecamatan Rappocini, Kelurahan Kassi-Kassi. Aabetta.id berdiri pada tahun 2020, dimana toko tersebut telah menjual lebih dari 100 ikan hias. Salah satu penghargaan yang telah di peroleh dari toko Aabetta.id yaitu telah meraih penghargaan sebagai juara umum di salah satu kontes betta yang di adakan di kota Makassar. \r\n\r\nCatatan : \r\n1. Bagi peserta yang ingin mengikuti lelang atau melakukan penawaran lelang, peserta di wajibkan untuk melengkapi data diri terlebih dahulu.\r\n2. Bagi peserta yang dinyatakan menang, diharapkan untuk segera melakukan transaksi di halaman \'Menang\'.\r\n3. Bagi peserta yang dinyatakan menang dan tidak melakukan transaksi maksimal 1 x 24 jam, maka akan dinyatakan gugur sebagai pemenang lelang dan akan di jadwalkan pelelangan ulang.\r\n');
 
 --
 -- Indexes for dumped tables
@@ -234,31 +236,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `lelang`
 --
 ALTER TABLE `lelang`
-  MODIFY `id_lelang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_lelang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengiriman`
 --
 ALTER TABLE `pengiriman`
-  MODIFY `id_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT untuk tabel `peserta`
 --
 ALTER TABLE `peserta`
-  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_peserta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT untuk tabel `tawaran`
 --
 ALTER TABLE `tawaran`
-  MODIFY `id_tawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_tawaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

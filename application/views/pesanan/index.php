@@ -99,7 +99,7 @@
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Status pesanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Status Pembayaran</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -109,7 +109,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="status_pembayaran">Status pesanan</label>
+                                    <label for="status_pembayaran">Status Pembayaran</label>
                                     <select class="form-control" id="status_pembayaran" name="status_pembayaran">
                                         <?php foreach ($status as $sts) : ?>
                                             <?php if ($sts == $pm['status_pembayaran']) : ?>
