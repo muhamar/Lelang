@@ -31,7 +31,11 @@ class Mypdf
 
         // Render the HTML as PDF
         $dompdf->render();
-        ob_clean();
+        // ob_clean();
+
+		if(ob_get_length() > 0) {
+			ob_clean();
+		}
         $dompdf->stream($namaFile . ".pdf", array("Attachment" => TRUE));
     }
 }

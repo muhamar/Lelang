@@ -90,9 +90,6 @@
 
 <?php endforeach; ?>
 
-
-
-
 <!-- Modal Update pesanan -->
 <?php foreach ($pesanan as $pm) : ?>
     <div class="modal fade" id="updatepesanan<?= $pm['id_pesanan']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
