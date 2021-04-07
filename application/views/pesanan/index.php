@@ -24,6 +24,7 @@
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($pesanan as $pm) : ?>
+							<?php if($pm['status_pembayaran'] == 'pending'): ?>
                             <tr>
                                 <th scope="row"><?= $i++; ?></th>
                                 <td><?= $pm['id_pesanan']; ?></td>
@@ -41,6 +42,7 @@
                                     <a href="<?= base_url('pesanan/hapusPesanan/' . $pm['id_pesanan']); ?>" onclick="return confirm('yakin?');" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt fa-lg" data-toggle="tooltip" data-placement="top" title="Hapus Pesanan"></i></a>
                                 </td>
                             </tr>
+							<?php endif; ?>
                         <?php endforeach ?>
                     </tbody>
                 </table>
@@ -104,19 +106,16 @@
                 <div class="modal-body">
                     <form action="<?= base_url('pesanan/updatepesanan/' . $pm['id_pesanan']); ?>" method="post">
                         <div class="card">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="status_pembayaran">Status Pembayaran</label>
-                                    <select class="form-control" id="status_pembayaran" name="status_pembayaran">
-                                        <?php foreach ($status as $sts) : ?>
-                                            <?php if ($sts == $pm['status_pembayaran']) : ?>
-                                                <option value="<?= $sts; ?>" selected><?= $sts; ?></option>
-                                            <?php else : ?>
-                                                <option value="<?= $sts; ?>"><?= $sts; ?></option>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+                            <div class="card-body text-center">
+								<div class="form-group">
+									<label for="status">Status Pembayaran</label><br>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="status" value="lunas" name="status_pembayaran" required>
+										<label class="form-check-label" for="status">
+											<b>Lunas</b>
+										</label>
+									</div>
+								</div>
                             </div>
                         </div>
                         <div class="modal-footer">

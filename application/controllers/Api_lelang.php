@@ -124,26 +124,31 @@ class Api_lelang extends RestController
 			}
 		
 			if ($this->post('tawaran') > $tawaranTertinggi) {
-				$data = [
-					'id_lelang' => $id,
-					'id_peserta' => $peserta['id_peserta'],
-					'harga_tawar' => $this->post('tawaran'),
-					'waktu_penawaran' => date('Y-m-d H:i:s')
-				];
-
-				if ($this->Model_lelang->tambahPenawaran($data) > 0 ) {
-					$idP = $peserta['id_peserta'];
-					$query = "SELECT * FROM tawaran WHERE id_peserta = '$idP' ORDER BY id_tawaran DESC LIMIT 1";
-					$tawaran = $this->db->query($query)->row_array();
-					return $this->response([
-						'status' => 200,
-						'pesan' => "Tawaran berhasil ditambahkan",
-						'tawaran' => $tawaran
-					], 200);
+				$tawaran = $this->post('tawaran');
+				$kelipatan = $lelang['kelipatan'];
+				$tawaranKelipatan = $tawaranTertinggi + $kelipatan;
+				if($tawaran > $tawaranKelipatan){
+					$data = [
+						'id_lelang' => $id,
+						'id_peserta' => $peserta['id_peserta'],
+						'harga_tawar' => $this->post('tawaran'),
+						'waktu_penawaran' => date('Y-m-d H:i:s')
+					];
+					
+					if ($this->Model_lelang->tambahPenawaran($data) > 0 ) {
+						$idP = $peserta['id_peserta'];
+						$query = "SELECT * FROM tawaran WHERE id_peserta = '$idP' ORDER BY id_tawaran DESC LIMIT 1";
+						$tawaran = $this->db->query($query)->row_array();
+						return $this->response([
+							'status' => 200,
+							'pesan' => "Tawaran berhasil ditambahkan",
+							'tawaran' => $tawaran
+						], 200);
+					}
 				}
 				return $this->response([
 					'status' => 500,
-					'pesan' => "Tawaran gagal ditambahkan"
+					'pesan' => "Tawaran harus kelipatan ".$kelipatan
 				], 500);
 			}
 			$this->response([

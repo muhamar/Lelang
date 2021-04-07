@@ -56,7 +56,7 @@
                                 <td>
 
                                     <a href="#" data-toggle="modal" data-target="#editLelangModal<?= $l['id_lelang']; ?>" class="btn btn-outline-primary btn-sm">
-                                        <i class="far fa-edit fa-lg" data-toggle="tooltip" data-placement="top" title="Update Pengiriman"></i>
+                                        <i class="far fa-edit fa-lg" data-toggle="tooltip" data-placement="top" title="Update Lelang"></i>
                                     </a>
 
 
@@ -68,10 +68,10 @@
                                     <a href="#" data-toggle="modal" data-target="#detailLelangModal<?= $l['id_lelang']; ?>" class="btn btn-outline-warning btn-sm">
                                         <i class="fas fa-question fa-lg" data-toggle="tooltip" data-placement="top" title="Detail Lelang"></i>
                                     </a>
-
+<!-- 
                                     <a href="<?= base_url('lelang/hapus/' . $l['id_lelang']); ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('yakin?');">
                                         <i class="far fa-trash-alt fa-lg" data-toggle="tooltip" data-placement="top" title="Hapus Pengiriman"></i>
-                                    </a>
+                                    </a> -->
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -107,11 +107,20 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="harga">Harga Buka/Awal</label>
-                                <input type="text" class="form-control" id="harga" name="harga_buka" placeholder="Rp." required>
-								
-                            </div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="harga">Harga Buka/Awal</label>
+										<input type="number" class="form-control" id="harga" name="harga_buka" placeholder="Rp." required>
+                            		</div>	
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="kelipatan">Kelipatan</label>
+										<input type="number" class="form-control" id="kelipatan" name="kelipatan" placeholder="Rp." required>
+                            		</div>	
+								</div>
+							</div>
                         </div>
                     </div>
                     <div class="row">
@@ -196,6 +205,20 @@
                                 <div class="col-md-1">:</div>
                                 <div class="col-md-8">
                                     <?= "Rp " . number_format($l['harga_buka'], 0, ",", "."); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+					<div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                   Kelipatan Tawaran
+                                </div>
+                                <div class="col-md-1">:</div>
+                                <div class="col-md-8">
+                                    <?= "Rp " . number_format($l['kelipatan'], 0, ",", "."); ?>
                                 </div>
                             </div>
                         </div>
@@ -312,13 +335,21 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="harga">Harga Buka/Awal</label>
-                                    <input type="text" class="form-control" id="harga" name="harga_buka" value="<?= $l['harga_buka']; ?>">
-									<td> </td>
-
-                                </div>
-                            </div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="harga">Harga Buka/Awal</label>
+										<input type="number" class="form-control" id="harga" name="harga_buka" value="<?= $l['harga_buka'];?>">
+                            		</div>	
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="kelipatan">Kelipatan</label>
+										<input type="number" class="form-control" id="kelipatan" name="kelipatan" value="<?= $l['kelipatan'];?>">
+                            		</div>	
+								</div>
+							</div>
+                        </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -338,28 +369,14 @@
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <?php foreach ($status as $sts) : ?>
-                                            <?php if ($sts == $l['status']) : ?>
-                                                <option value="<?= $sts; ?>" selected><?= $sts; ?></option>
-                                            <?php else : ?>
-                                                <option value="<?= $sts; ?>"><?= $sts; ?></option>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div> -->
 
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="mulai">Waktu Mulai</label>
                                     <input type="datetime-local" class="form-control" id="mulai" name="waktu_mulai" value="<?= date('Y-m-d\TH:i:s', strtotime($l['waktu_mulai'])); ?>">
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="selesai">Waktu Selesai</label>
                                     <input type="datetime-local" class="form-control" id="selesai" name="waktu_selesai" value="<?= date('Y-m-d\TH:i:s', strtotime($l['waktu_selesai'])); ?>">

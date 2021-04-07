@@ -18,14 +18,13 @@ class Pesanan extends CI_Controller
         $data['aktif'] = "pesanan";
         $data['judul'] = "Halaman - Konfirmasi - pesanan";
         $data['pesanan'] = $this->Model_pesanan->tampilpesanan();
-        $data['status'] = ['belum lunas', 'lunas'];
         $this->template->load('template/template_dashboard.php', 'pesanan/index.php', $data);
     }
 
     public function updatepesanan($id)
     {
         $this->Model_pesanan->updateStatuspesanan($id);
-        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role"alert"> Status pesanan berhasil di update !</div>');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role"alert"> Status pesanan berhasil di update, silahkan melanjutkan penginputan nomor resi di menu pengiriman!</div>');
         redirect('pesanan');
     }
 

@@ -27,6 +27,7 @@ class Model_lelang extends CI_Model
                 $data = [
                     'nama_ikan_hias' => $this->input->post('nama'),
                     'harga_buka' => $this->input->post('harga_buka'),
+                    'kelipatan' => $this->input->post('kelipatan'),
                     'gambar' => $gambar,
                     'deskripsi' => $this->input->post('deskripsi'),
                     'waktu_mulai' => $this->input->post('waktu_mulai'),
@@ -67,6 +68,7 @@ class Model_lelang extends CI_Model
         $data = [
             'nama_ikan_hias' => $this->input->post('nama'),
             'harga_buka' => $this->input->post('harga_buka'),
+			'kelipatan' => $this->input->post('kelipatan'),
             'deskripsi' => $this->input->post('deskripsi'),
             'waktu_mulai' => $this->input->post('waktu_mulai'),
             'waktu_selesai' =>$this->input->post('waktu_selesai')
