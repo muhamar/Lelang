@@ -46,10 +46,13 @@
 										date_default_timezone_set('Asia/Makassar');
 										$waktuSekarang = date('Y-m-d H:i:s');
 										$waktuSelesaiLelang = $l['waktu_selesai'];
+										$waktuMulaiLelang = $l['waktu_mulai'];
 										if($waktuSekarang > $waktuSelesaiLelang){
 											echo "Ditutup";
+										}else if($waktuSekarang > $waktuMulaiLelang){
+											echo "Berlangsung";
 										}else{
-											echo "Dibuka";
+											echo "Akan Datang";
 										}
 									?>
                                 </td>

@@ -51,8 +51,8 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Jumlah Pesanan</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800 mb-1"><?= $jumlah_pesanan; ?></div>
+                            Konfirmasi Pesanan</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mb-1"><?= $jumlah_pesanan_pending; ?></div>
 
                         <a href="<?= base_url('pesanan'); ?>" class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="text-decoration: none;">Detail <i class="fas fa-angle-double-right ml-2"></i> </a>
                     </div>
