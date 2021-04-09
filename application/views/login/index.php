@@ -23,10 +23,37 @@
 	<link rel="shortcut icon" href="<?= base_url(); ?>assets/img/favicon/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="<?= base_url(); ?>assets/img/favicon/favicon.ico" type="image/x-icon">
 
+	<style>
+		/* --- PRELOADER ---*/
+		.preloader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 9999;
+			background-color: #ffffff;
+		}
+		.preloader .loading {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			font: 14px arial;
+		}
+		.preloader .loading img{
+			width: 150px;
+		}
+	</style>
+
 </head>
 
 <body class="bg-light">
-
+	<div class="preloader">
+		<div class="loading">
+				<img src="<?= base_url(); ?>assets/img/landingpage/loader.gif">
+		</div>
+	</div>
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -85,6 +112,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+
+
+	<script>
+		$(document).ready(function(){
+		$(".preloader").delay(2500).fadeOut();
+		})
+	</script>
 
 </body>
 
