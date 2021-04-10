@@ -153,7 +153,6 @@
 				color: black;
 			}
 
-
 			section .row .admin{
 			border-radius: 50px;
 			width: 195px;
