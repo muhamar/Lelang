@@ -130,12 +130,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="gambar">Gambar</label>
-                                <input type="file" class="form-control" id="gambar" name="gambar" required> <br>
+                                <input type="file" class="form-control" id="gambar" name="gambar[]" multiple required> 
                             </div>
                         </div>
                     </div>
                     <div class="row">
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="deskripsi">Deskrips</label>
@@ -235,7 +234,11 @@
                                 </div>
                                 <div class="col-md-1">:</div>
                                 <div class="col-md-8">
-                                    <img src="<?= base_url('assets/img/' . $l['gambar']); ?>" alt="" width="130px">
+									<?php $id_lelang = $l['id_lelang']; ?>
+									<?php $gambar = $this->db->get_where('gambar',['id_lelang'=>$id_lelang])->result_array(); ?>
+									<?php foreach($gambar as $gmbr): ?>
+                                    <img src="<?= base_url('assets/img/' . $gmbr['nama_gambar']); ?>" alt="" width="50px">
+									<?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
@@ -358,9 +361,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="gambar">Gambar</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" value="<?= $l['gambar']; ?>"> <br>
-                                    <img src="<?= base_url('assets/img/' . $l['gambar']); ?>" width="100px" alt="">
-
+                                    <input type="file" class="form-control" id="gambar" name="gambar[]" multiple> <br>
+                                    <?php $id_lelang = $l['id_lelang']; ?>
+									<?php $gambar = $this->db->get_where('gambar',['id_lelang'=>$id_lelang])->result_array(); ?>
+									<?php foreach($gambar as $gmbr): ?>
+                                    <img src="<?= base_url('assets/img/' . $gmbr['nama_gambar']); ?>" alt="" width="50px">
+									<?php endforeach; ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -370,9 +376,7 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="mulai">Waktu Mulai</label>

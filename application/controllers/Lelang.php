@@ -19,7 +19,6 @@ class Lelang extends CI_Controller
         $data['aktif'] = "lelang";
         $data['judul'] = "Halaman - Lelang";
         $data['lelang'] = $this->Model_lelang->tampilLelang();
-        $data['status'] = ['dibuka', 'ditutup'];
         $this->template->load('template/template_dashboard.php', 'Lelang/index.php', $data);
     }
 

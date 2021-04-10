@@ -13,69 +13,70 @@ class Model_lelang extends CI_Model
 
     public function tambahLelang()
     {
+		
+		$upload_gambar = $_FILES['gambar']['name'];
+		if($upload_gambar){
+			$count = count($upload_gambar);
+			for($i = 0; $i<$count ; $i++){
+				$gambar = $upload_gambar[$i];
+				$tmp = $_FILES['gambar']['tmp_name'][$i];
+				move_uploaded_file($tmp,'./assets/img/'.$gambar);
+				$query = "SELECT id_lelang FROM lelang ORDER BY id_lelang DESC LIMIT 1";
+				$lelang = $this->db->query($query)->row_array();
+				$idLelang = $lelang['id_lelang'] + 1;
+				$data = [
+					'id_lelang' => $idLelang,
+					'nama_gambar' => $gambar
+				];
+				$this->db->insert('gambar', $data);
 
-        //cek gambar
-        $upload_gambar = $_FILES['gambar']['name'];
-        if ($upload_gambar) {
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '8000';
-            $config['upload_path'] = './assets/img/';
+			}
+			$data = [
+				'nama_ikan_hias' => $this->input->post('nama'),
+				'harga_buka' => $this->input->post('harga_buka'),
+				'kelipatan' => $this->input->post('kelipatan'),
+				'deskripsi' => $this->input->post('deskripsi'),
+				'waktu_mulai' => $this->input->post('waktu_mulai'),
+				'waktu_selesai' => $this->input->post('waktu_selesai')
+			];
+			$this->db->insert('lelang', $data);
+			
+		}
 
-            $this->load->library('upload', $config);
-            if ($this->upload->do_upload('gambar')) {
-                $gambar = $this->upload->data('file_name');
-                $data = [
-                    'nama_ikan_hias' => $this->input->post('nama'),
-                    'harga_buka' => $this->input->post('harga_buka'),
-                    'kelipatan' => $this->input->post('kelipatan'),
-                    'gambar' => $gambar,
-                    'deskripsi' => $this->input->post('deskripsi'),
-                    'waktu_mulai' => $this->input->post('waktu_mulai'),
-                    'waktu_selesai' => $this->input->post('waktu_selesai')
-                ];
-                $this->db->insert('lelang', $data);
-            } else {
-                echo $this->upload->display_errors();
-            }
-        } else {
-            echo "<script>alert('Gagal menambahkan lelang !)</script>";
-        }
     }
 
 
 
     public function editLelang($id)
     {
-
         $data['lelang'] = $this->db->get_where('lelang', ['id_lelang' => $id])->row_array();
-        //cek gambar
-        $upload_gambar = $_FILES['gambar']['name'];
-        if ($upload_gambar) {
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '8000';
-            $config['upload_path'] = './assets/img/';
+		$upload_gambar = $_FILES['gambar']['name'];
+		if($upload_gambar){
+			$count = count($upload_gambar);
+			$this->db->delete('gambar',['id_lelang'=>$id]);
+			for($i = 0; $i<$count ; $i++){
+				$gambar = $upload_gambar[$i];
+				$tmp = $_FILES['gambar']['tmp_name'][$i];
+				move_uploaded_file($tmp,'./assets/img/'.$gambar);
+				$data = [
+					'id_lelang' => $id,
+					'nama_gambar' => $gambar
+				];
+				$this->db->insert('gambar', $data);
+			}
 
-            $this->load->library('upload', $config);
-            if ($this->upload->do_upload('gambar')) {
-                $gambar_baru = $this->upload->data('file_name');
-                $this->db->set('gambar', $gambar_baru);
-            } else {
-                echo $this->upload->display_errors();
-            }
-        }
-
-    
-        $data = [
-            'nama_ikan_hias' => $this->input->post('nama'),
-            'harga_buka' => $this->input->post('harga_buka'),
-			'kelipatan' => $this->input->post('kelipatan'),
-            'deskripsi' => $this->input->post('deskripsi'),
-            'waktu_mulai' => $this->input->post('waktu_mulai'),
-            'waktu_selesai' =>$this->input->post('waktu_selesai')
-        ];
-        $this->db->set($data);
-        $this->db->where('id_lelang', $id);
-        $this->db->update('lelang');
+			$data = [
+				'nama_ikan_hias' => $this->input->post('nama'),
+				'harga_buka' => $this->input->post('harga_buka'),
+				'kelipatan' => $this->input->post('kelipatan'),
+				'deskripsi' => $this->input->post('deskripsi'),
+				'waktu_mulai' => $this->input->post('waktu_mulai'),
+				'waktu_selesai' =>$this->input->post('waktu_selesai')
+			];
+			$this->db->set($data);
+			$this->db->where('id_lelang', $id);
+			$this->db->update('lelang');
+		}
     }
 
     public function hapusLelang($id)
