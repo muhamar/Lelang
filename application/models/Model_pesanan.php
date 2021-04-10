@@ -22,7 +22,6 @@ class Model_pesanan extends CI_Model
         $this->db->delete('pesanan', ['id_pesanan' => $id]);
     }
 
-
     public function tampilPengiriman($id = null)
     {
         if ($id == null) {

@@ -19,6 +19,15 @@ class Model_lelang extends CI_Model
 			$count = count($upload_gambar);
 			for($i = 0; $i<$count ; $i++){
 				$gambar = $upload_gambar[$i];
+
+				//cek type file
+				$valid = ['png','jpg','jpeg'];
+				$ekstensi = explode('.',$gambar);
+				$ekstensi = strtolower(end($ekstensi));
+				if(!in_array($ekstensi,$valid)){
+					return	$this->db->affected_rows();
+				}
+
 				$tmp = $_FILES['gambar']['tmp_name'][$i];
 				move_uploaded_file($tmp,'./assets/img/'.$gambar);
 				$query = "SELECT id_lelang FROM lelang ORDER BY id_lelang DESC LIMIT 1";
@@ -41,10 +50,11 @@ class Model_lelang extends CI_Model
 			];
 			$this->db->insert('lelang', $data);
 			
+
+			return	$this->db->affected_rows();
 		}
 
     }
-
 
 
     public function editLelang($id)
@@ -56,6 +66,15 @@ class Model_lelang extends CI_Model
 			$this->db->delete('gambar',['id_lelang'=>$id]);
 			for($i = 0; $i<$count ; $i++){
 				$gambar = $upload_gambar[$i];
+				
+				//cek type file
+				$valid = ['png','jpg','jpeg'];
+				$ekstensi = explode('.',$gambar);
+				$ekstensi = strtolower(end($ekstensi));
+				if(!in_array($ekstensi,$valid)){
+					return	false;
+				}
+
 				$tmp = $_FILES['gambar']['tmp_name'][$i];
 				move_uploaded_file($tmp,'./assets/img/'.$gambar);
 				$data = [
@@ -76,6 +95,8 @@ class Model_lelang extends CI_Model
 			$this->db->set($data);
 			$this->db->where('id_lelang', $id);
 			$this->db->update('lelang');
+
+			return true;
 		}
     }
 

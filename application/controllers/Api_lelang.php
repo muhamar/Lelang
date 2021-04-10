@@ -49,6 +49,7 @@ class Api_lelang extends RestController
 			$lelang = $this->db->get('lelang')->result_array();
 			$tawaran = $this->db->get('tawaran')->result_array();
 			$peserta = $this->db->get('peserta')->result_array();
+			$gambar = $this->db->get('gambar')->result_array();
 			$users = [];
 
 			foreach($peserta as $user) {
@@ -66,6 +67,7 @@ class Api_lelang extends RestController
 					'lelang' => $lelang,
 					'tawaran' => $tawaran,
 					'peserta' => $users,
+					'gambar' => $gambar
 				]
 			], 200);
     }

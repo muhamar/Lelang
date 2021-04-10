@@ -71,8 +71,10 @@
 			font-size: 60px;
 		}
 		p{
-			font-family: 'Arial';
-			line-height: 29px;
+			font-family: 'Corbel';
+			letter-spacing: 1px;
+			word-spacing: 2px;
+			line-height: 31px;
 			color: #fff;
 			font-size: 18px;
 		}
@@ -134,6 +136,61 @@
 			width: 150px;
 		}
 
+		@media (max-width: 768px){
+			#andorid{
+				width: 400px;
+				padding: 5px;
+			}
+			#teks{
+				margin: 0;
+			}
+			#teks .download{
+				margin-top: 0;
+				padding: 15px;
+			}
+
+			p,h1{
+				color: black;
+			}
+
+
+			section .row .admin{
+			border-radius: 50px;
+			width: 195px;
+			height: 50px;
+			line-height: 30px;
+			background-color: transparent;
+			border: 2px solid #e10f00;
+			color: #e10f00;
+			font-size: 18px;
+			font-weight: bold;
+			transition: 0.5s;
+		}
+		section .text .admin:hover{
+			background-color: #e10f00;
+			color: #ffff;
+			border: 2px solid transparent;
+		}
+		section .row .hubAdmin{
+			border-radius: 50px;
+			width: 195px;
+			height: 50px;
+			line-height: 30px;
+			background-color: #e10f00;
+			border: 2px solid transparent;
+			color: #ffff;
+			font-size: 18px;
+			font-weight: bold;
+			transition: 0.5s;
+		}
+		section .text .hubAdmin:hover{
+			background-color: transparent;
+			color: #e10f00;
+			border: 2px solid #e10f00;
+		}
+			
+		}
+
 	</style>
 
 	</head>
@@ -151,12 +208,12 @@
 			</div>
 			<div class="col-lg-8" id="teks">
 				<div class="row no-gutters">
-					<div class="col-md-3 download">
+					<div class="col-md-4 download pr-3">
 						<h3>Download</h3>
 						<p>Peserta lelang dapat mendownload aplikasi aabetta berbasis android pada tombol di bawah ini:</p>
 						<a href="#" class="btn unduh">Unduh</a>
 					</div>
-					<div class="col-md-9 pl-4 text-right pr-4 text">
+					<div class="col-md-8 pl-4 text-right pr-3 text">
 						<h1>AABETTA.ID</h1>
 						<p>Aabetta.id merupakan salah satu toko penjualan ikan hias dengan konsep pelelangan online di kota Makassar,untuk tokonya sendiri berlokasi di Jl. Borong Indah Ruko No.78, Kecamatan Rappocini, Kelurahan Kassi-Kassi. Aabetta.id berdiri pada tahun 2020, dimana toko tersebut telah menjual lebih dari 100 ikan hias. Salah satu penghargaan yang telah di peroleh dari toko Aabetta.id yaitu telah meraih penghargaan sebagai juara umum di salah satu kontes beta yang di adakan di kota Makassar.</p>
 						<a href="<?= base_url('login'); ?>" class="btn admin mr-2">Admin Area</a>
