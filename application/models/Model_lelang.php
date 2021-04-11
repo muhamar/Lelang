@@ -53,9 +53,7 @@ class Model_lelang extends CI_Model
 
 			return	$this->db->affected_rows();
 		}
-
     }
-
 
     public function editLelang($id)
     {
@@ -63,7 +61,7 @@ class Model_lelang extends CI_Model
 		$upload_gambar = $_FILES['gambar']['name'];
 		if($upload_gambar){
 			$count = count($upload_gambar);
-			$this->db->delete('gambar',['id_lelang'=>$id]);
+
 			for($i = 0; $i<$count ; $i++){
 				$gambar = $upload_gambar[$i];
 				
@@ -73,15 +71,25 @@ class Model_lelang extends CI_Model
 				$ekstensi = strtolower(end($ekstensi));
 				if(!in_array($ekstensi,$valid)){
 					return	false;
+				}else{
+					$gambarBaru[] = $gambar;
 				}
 
-				$tmp = $_FILES['gambar']['tmp_name'][$i];
-				move_uploaded_file($tmp,'./assets/img/'.$gambar);
-				$data = [
+				
+			}
+			$countBaru = count($gambarBaru);
+			if($count == $countBaru){
+				$this->db->delete('gambar',['id_lelang'=>$id]);
+				for($i = 0; $i<$count ; $i++){
+					$gambar = $upload_gambar[$i];
+					$tmp = $_FILES['gambar']['tmp_name'][$i];
+					move_uploaded_file($tmp,'./assets/img/'.$gambar);
+					$data = [
 					'id_lelang' => $id,
 					'nama_gambar' => $gambar
-				];
-				$this->db->insert('gambar', $data);
+					];
+					$this->db->insert('gambar', $data);
+				}
 			}
 
 			$data = [
