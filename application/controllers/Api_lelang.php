@@ -129,7 +129,7 @@ class Api_lelang extends RestController
 				$tawaran = $this->post('tawaran');
 				$kelipatan = $lelang['kelipatan'];
 				$tawaranKelipatan = $tawaranTertinggi + $kelipatan;
-				if($tawaran > $tawaranKelipatan){
+				if($tawaran >= $tawaranKelipatan){
 					$data = [
 						'id_lelang' => $id,
 						'id_peserta' => $peserta['id_peserta'],
